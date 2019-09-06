@@ -20,6 +20,8 @@ Job Role Section
 $('#title').on('click', function(e){
   if (e.target.value === 'other'){  //if user selects "other" option from drop down menu
     $('#other-title').show(); //show "input" element with ID "other-title"
+  } else {
+    $('#other-title').hide(); //hide other input element when "other" option not selected
   }
 });
 
@@ -27,10 +29,11 @@ $('#title').on('click', function(e){
 /**********************************************
 T-Shirt Info Section
 ***********************************************/
-
+$('#color').children().hide(); //hide shirt options initially
 //add "click" event handler to element with ID "design"
 $('#design').on('click', function(e){
   if (e.target.value === 'js puns'){ //if user selects "js puns" hide/show appropriate options
+    $('#color').children('option[value="selectTheme"]').prop('selected', true); //sets option to select a t-shirt theme if user wants to switch designs
     $('#color').children('option[value="tomato"]').hide();
     $('#color').children('option[value="steelblue"]').hide();
     $('#color').children('option[value="dimgrey"]').hide();
@@ -38,6 +41,7 @@ $('#design').on('click', function(e){
     $('#color').children('option[value="darkslategrey"]').show();
     $('#color').children('option[value="gold"]').show();
   } else if (e.target.value === 'heart js'){ //if user selects "heart js" hide/show appropriate options
+    $('#color').children('option[value="selectTheme"]').prop('selected', true); //sets option to select a t-shirt theme if user wants to switch designs
     $('#color').children('option[value="cornflowerblue"]').hide();
     $('#color').children('option[value="darkslategrey"]').hide();
     $('#color').children('option[value="gold"]').hide();
@@ -142,12 +146,10 @@ function isName(name){
     //change labels text to an error message if invalid name
     $('#name').prev().text('Must Enter A Valid Name').css({'color': 'red' , 'font-weight': '600'});
     $('#name').css('border-color', 'red');     //make name input border red
-    console.log('nope');
     return false;
   } else {
       $('#name').prev().text('Name:').css({'color': '' , 'font-weight': 'normal'}); //change name label text back to previous statement
       $('#name').css('border-color', ""); //return name input border to normal
-      console.log('nice');
       return true;
   }
 };
@@ -162,11 +164,9 @@ function checkboxChecked(){
   if ( totalCost === 0 ){
     //dispaly an error message where the total cost is shown
     displayCost.html('Must select a minimum of one activity in order to register.').css({'color': 'red' , 'font-weight': '600'});
-    console.log('select an activity');
     return false;
   } else {
     displayCost.css({'color': '' , 'font-weight': 'normal'});
-    console.log('at least one activity has been selected');
     return true;
   }
 };
@@ -177,13 +177,11 @@ function isValidEmail(){
     //error message if not a valid email
     $('#mail').prev().text('Must Enter A Valid email').css({'color': 'red' , 'font-weight': '600'});
     $('#mail').css('border-color', 'red');
-    console.log('nope');
     return false;
   } else {
       //return label text back to normal
       $('#mail').prev().text('Email:').css({'color': '' , 'font-weight': 'normal'});
       $('#mail').css('border-color', '')
-      console.log('nice');
       return true;
   }
 };
@@ -198,12 +196,10 @@ function creditCard(number){
     //make credit card text red
     $('#cc-num').prev().css('color', 'red');
     $('#cc-num').css('border-color', 'red')
-    console.log('nope');
     return false
   } else {
       $('#cc-num').prev().css('color', '');
       $('#cc-num').css('border-color', '')
-      console.log('nice');
       return true;
   }
 };
@@ -216,12 +212,10 @@ function zipCode(){
   if (/^\d{5}$/.test($('#zip').val()) === false){ //check if value of the zip code input field is valid
     $('#zip').prev().css('color', 'red');
     $('#zip').css('border-color', "red")
-    console.log('nope');
     return false;
   } else {
       $('#zip').prev().css('color', '');
       $('#zip').css('border-color', '');
-      console.log('nice');
       return true;
   }
 };
@@ -234,12 +228,10 @@ function CVV(){
   if (/^\d{3}$/.test($('#cvv').val()) === false){ //check if value of the CVV input field is valid
     $('#cvv').prev().css('color', 'red');
     $('#cvv').css('border-color', 'red')
-    console.log('nope');
     return false;
   } else {
       $('#cvv').prev().css('color', '');
       $('#cvv').css('border-color', '');
-      console.log('nice');
       return true;
   }
 };
@@ -255,20 +247,14 @@ function validateAll() {
     zipCode();
     CVV();
     if ( isName() == false || checkboxChecked() == false || isValidEmail()  == false || creditCard() == false || zipCode() == false || CVV() == false ) { //check if all forms are correct
-      console.log('false');
-      //e.preventDefault();
       return false;
     } else { //will return true if all forms are correct when "credit card" is selected as payment
-        console.log('nice');
         return true;
     }
   } else {  //if user selects to pay with "Bitcoin" or "Paypal"
     if ( isName() == false || checkboxChecked() == false || isValidEmail() == false ) { //check if all forms are correct
-      console.log('false');
-      //e.preventDefault();
       return false;
     } else { //will return true if the forms are correct
-      console.log('nice');
         return true;
     }
   }
@@ -276,47 +262,10 @@ function validateAll() {
 
 //submit handler to prevent submission if forms are not filled out correctly
  $('form').submit(function(e){
-   isName();
-   isValidEmail();
-   checkboxChecked();
-   creditCard();
-   zipCode();
-   CVV();
    if ( validateAll() === true ){ //if the appropriate forms are filled correctly
-     console.log('oh yeah wow');
      return true;
    } else { //if the forms are not valid will prevent the submision with prevent default
      e.preventDefault();
-     console.log('not yet');
      return false;
    }
  });
-
-
-// $('form').submit(function(e){
-//   isName();
-//   checkboxChecked();
-//   isValidEmail();
-//   if ( $('option[value="Credit Card"]').is(':selected') ) {
-//     creditCard();
-//     zipCode();
-//     CVV();
-//     if ( isName() == false || checkboxChecked() == false || isValidEmail()  == false || creditCard() == false || zipCode() == false || CVV() == false ) {
-//       console.log('false');
-//       e.preventDefault();
-//       return false;
-//     } else {
-//         console.log('nice');
-//         return true;
-//     }
-//   } else {
-//     if ( isName() == false || checkboxChecked() == false || isValidEmail() == false ) {
-//       console.log('false');
-//       e.preventDefault();
-//       return false;
-//     } else {
-//       console.log('nice');
-//         return true;
-//     }
-//   }
-// });
