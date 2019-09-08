@@ -32,16 +32,25 @@ T-Shirt Info Section
 $('#color').children().hide(); //hide shirt options initially
 //add "click" event handler to element with ID "design"
 $('#design').on('click', function(e){
-  if (e.target.value === 'js puns'){ //if user selects "js puns" hide/show appropriate options
-    $('#color').children('option[value="selectTheme"]').prop('selected', true); //sets option to select a t-shirt theme if user wants to switch designs
+  if (e.target.value === 'Select Theme' ){
+    $('#color').children('option[value="selectTheme"]').prop('selected', true);
+    $('#color').children('option[value="selectTheme"]').show();
+    $('#color').children('option[value="tomato"]').hide();
+    $('#color').children('option[value="steelblue"]').hide();
+    $('#color').children('option[value="dimgrey"]').hide();
+    $('#color').children('option[value="cornflowerblue"]').hide();
+    $('#color').children('option[value="darkslategrey"]').hide();
+    $('#color').children('option[value="gold"]').hide();
+  } else if (e.target.value === 'js puns'){ //if user selects "js puns" hide/show appropriate options
+    $('#color').children('option[value="cornflowerblue"]').prop('selected', true); //sets option to select a t-shirt theme if user wants to switch designs
     $('#color').children('option[value="tomato"]').hide();
     $('#color').children('option[value="steelblue"]').hide();
     $('#color').children('option[value="dimgrey"]').hide();
     $('#color').children('option[value="cornflowerblue"]').show();
     $('#color').children('option[value="darkslategrey"]').show();
     $('#color').children('option[value="gold"]').show();
-  } else if (e.target.value === 'heart js'){ //if user selects "heart js" hide/show appropriate options
-    $('#color').children('option[value="selectTheme"]').prop('selected', true); //sets option to select a t-shirt theme if user wants to switch designs
+  } else if (e.target.value === 'heart js'){
+    $('#color').children('option[value="tomato"]').prop('selected', true); //sets option to select a t-shirt theme if user wants to switch designs
     $('#color').children('option[value="cornflowerblue"]').hide();
     $('#color').children('option[value="darkslategrey"]').hide();
     $('#color').children('option[value="gold"]').hide();
